@@ -16,19 +16,19 @@ const Users = () => {
         console.log('.....', userName);
       }
       
-      // const NewFriendReq = {
-      //   user : userId,
-      //   type : 'friend request',
-      //   content : `you got new friend request from ${userName} `,
-      //   read : false,
-      // }
-      // console.log('afhsdfkd',NewFriendReq);
-      // await friendNotification(NewFriendReq);
-      await friedRequest(userId,friendreqId)
-      setRequestSent((prevState)=>({
-        ...prevState,
-        [userId] : true,
-      }))
+      const NewFriendReq = {
+        user : userId,
+        type : 'friend request',
+        content : `you got new friend request from ${userName} `,
+        read : false,
+      }
+      console.log('friend req data send',NewFriendReq);
+      await friendNotification(NewFriendReq);
+      // await friedRequest(userId,friendreqId)
+      // setRequestSent((prevState)=>({
+      //   ...prevState,
+      //   [userId] : true,
+      // }))
 
     }catch(err){
       console.log('err sending frend request',err);

@@ -10,8 +10,8 @@ exports.createPost = async (req, res) => {
 
     // Store the image filename in the Images field
     if (req.file) {
-      console.log(req.file);
-      newPost.Images = req.file.originalname;
+      
+      newPost.image = req.file.originalname;
     }
 
     // Save the newPost to the database

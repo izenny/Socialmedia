@@ -1,5 +1,5 @@
 const Notification = require('../Modals/Notificationschema');
-
+const User =  require('../Modals/Userschema')
 exports.createNotification = async (req, res) => {
   try {
     const { user, type, content, read } = req.body;
@@ -7,27 +7,29 @@ exports.createNotification = async (req, res) => {
     
     const newNotification = new Notification({ user, type, content, read });
     const savedNotification = await newNotification.save();
+    const userIdd = await User.findById(req.body.user);
+    if(!userIdd){
+      return res.status(404).json({ message: 'User not found' });
+    }
+    userIdd.notifications.push(savedNotification._id);
+    await userIdd.save();
     
-    res.status(201).json(savedNotification); // Use status 201 for successful creation
+
+    res.status(201).json(savedNotification); 
+
   } catch (err) {
     console.error('Error creating notification:', err);
     res.status(400).json({ message: err.message });
   }
 };
 
-// exports.getAllNotifications = async (req, res)=>{
-//     try{
-//         const notification = await Notification.find();
-//         res.json(notification);
-//     }catch(err){
-//         res.status(400).json({message : err.message});
-//     }
-// }
+//notification by user id
+
 exports.getNotificationByUserId = async (req, res)=>{
     try{
-        const userId = req.params.userId;
+        const userId = req.params.id;
         const NotificationByUser = await Notification.find({user: userId}) 
-        res.json(NotificationByUser);
+        res.status(201).json(NotificationByUser);
     }catch(err){
         res.status(500).json({message:err.message})
     }}

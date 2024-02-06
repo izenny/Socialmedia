@@ -30,3 +30,11 @@ export const PostData = async (userId)=>{
         console.log('fetch post err',err);
     }
 }
+//like post 
+export const LikePostApi = async()=>{
+    try{
+        const Like = await publicRequest.()
+    }catch(err){
+        console.log('like err api');
+    }
+}

@@ -100,7 +100,7 @@ const Navbar = () => {
       <div className='right'>
           <div className='right-p'>
             {/* <div className="div-users"> */}
-              <Users/>
+              {/* <Users/> */}
               {/* <Friends/> */}
               {/* <Friendreq/> */}
               <Notifications/>
