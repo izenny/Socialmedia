@@ -31,10 +31,13 @@ export const PostData = async (userId)=>{
     }
 }
 //like post 
-export const LikePostApi = async()=>{
+export const LikePostApi = async(userId,postId)=>{
     try{
-        const Like = await publicRequest.()
+        console.log('idsssssssssssssssssss',userId );
+        console.log('idsssssssssssssssssss',postId );
+        const Like = await publicRequest.put(`post/like/${postId}?userId=${userId}`,)
+        console.log('like added',Like);
     }catch(err){
-        console.log('like err api');
+        console.log('like add err api');
     }
 }

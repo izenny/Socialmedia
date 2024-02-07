@@ -28,6 +28,7 @@ router.get('/:id', postsController.getPostById);
 // DELETE /posts/:id
 // Delete a post by ID
 router.delete('/:id', postsController.deletePost);
-
+//like
+router.put('/like/:postId',postsController.LikePost)
 router.get('/users/:userId/posts', postsController.getPostsByUserId); //http://localhost:5001/post/users/65b192432e905295c467323a/posts
 module.exports = router;

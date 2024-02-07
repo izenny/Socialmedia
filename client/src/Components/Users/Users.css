@@ -62,7 +62,8 @@
 .user-icons{
     display: flex;
     justify-content: space-around;
-    color: rgb(95, 160, 109);
+    /* color: rgb(95, 160, 109); */
+    color: blue;
     /* background-color: aquamarine; */
     width: 100%;
     

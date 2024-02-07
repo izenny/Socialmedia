@@ -11,7 +11,7 @@ export const usersData = async ()=>{
 }
 export const friedRequest = async (userId,FrireqId)=>{
     try{
-        const usersreq = await publicRequest.post(`users/friendreq/${userId}`,FrireqId) 
+        const usersreq = await publicRequest.put(`users/friendreq/${userId}?friendreqId=${FrireqId}`,) 
         console.log('usersss req', usersreq);
         
     }catch(err){

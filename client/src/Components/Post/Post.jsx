@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Post.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaRegHeart, FaHeart, FaRegComment, FaComment } from "react-icons/fa";
+import { FaRegHeart, FaHeart,  FaComment } from "react-icons/fa";
+import { FcLike } from "react-icons/fc";
 import { LuSend } from "react-icons/lu";
 import { LikePostApi, PostData } from "../../Api/PostApi";
 import { useSelector } from "react-redux";
@@ -37,6 +38,7 @@ const Post = ({ userId }) => {
     };
     try {
       await likeNotificationApi(NewLikeNotificationdata);
+      
       await LikePostApi(userId,postId)
       
     } catch (err) {
@@ -92,7 +94,7 @@ const Post = ({ userId }) => {
             <div className="post-footer">
               <div className="likes" onClick={() => handleLike(post._id,post.author.firstname)}>
                 {/* Conditional rendering of like button based on whether the user has already liked the post */}
-                {post.likes.includes(userId) ? <FaHeart /> : <FaRegHeart />}
+                {post.likes.includes(userId) ? <FcLike /> : <FaRegHeart />}
                 <span className="count">{post.likes.length} Likes</span>
               </div>
               <div className="comments" onClick={() => handleComment(post._id,post.author.firstname)}>

@@ -66,6 +66,34 @@ exports.createPost = async (req, res) => {
   //     console.log('err',err);
   //   }
   // };
+//like fuction
+exports.LikePost = async (req,res)=>{
+  try{
+    const userId = req.query.userId;
+    
+    const postId = req.params.postId;
+    console.log('user iddddddd',userId);
+    console.log('post iddddddd',postId);
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: 'post not found' });
+    }
+    if (!post.likes.includes(userId)){
+      post.likes.push(userId)
+      await post.save();
+      console.log('like added');
+    }else{
+      const index = post.likes.indexOf(userId);
+      post.likes.splice(index,1);
+      await post.save();
+      console.log('like removed');
+    }
+  }catch(err){
+    res.status(400).json({message : err.message})
+    console.log('err likes');
+  }
+}
+
 
 //get all posts
 exports.getAllPosts = async (req, res)=>{

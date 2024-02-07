@@ -29,7 +29,7 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: "http://localhost:3000", // Replace with your client's origin
-    methods: ["GET", "POST","DELETE","UPDATE"]
+    methods: ["GET", "POST","DELETE","PUT"]
   }
 });
 

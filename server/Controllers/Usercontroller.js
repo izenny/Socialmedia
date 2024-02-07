@@ -61,7 +61,7 @@ exports.verifyLogin = async (req, res)=>{
 //   };
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({}, 'id firstname lastname');
+    const users = await User.find({}, 'id firstname lastname friendrequest');
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -83,9 +83,26 @@ exports.getAllUsers = async (req, res) => {
 //   };
 exports.friendReqestsId = async (req, res)=>{
   try{
-   const user = await User.findById(req.params.id);
-   const fReq = req.body
-   user.friendrequest.push(fReq)
+    const friendreqId = req.query.friendreqId;
+    console.log('user idddd', friendreqId);
+    const userId = req.params.userId
+    console.log('user idddd',userId);
+   const user = await User.findById(userId);
+   if(!user){
+    return res.status(404).json({ message: 'user not found' });
+   }
+   if(!user.friendrequest.includes(friendreqId)){
+      user.friendrequest.push(friendreqId)
+      user.save()
+      console.log('request sent');
+   }else{
+    const index =user.friendrequest.indexOf(friendreqId);
+    user.friendrequest.splice(index,1);
+    await user.save()
+    console.log('req removed');
+   }
+   
+   
   }catch(err){
     
     res.status(500).json({ message: err.message });
