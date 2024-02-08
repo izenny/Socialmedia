@@ -5,8 +5,8 @@ import { IoMdPersonAdd, IoMdRemoveCircle } from "react-icons/io";
 import { friedRequest, usersData } from '../../Api/UsersApi';
 import { friendNotification } from '../../Api/NotificationApi';
 import { useSelector } from 'react-redux';
-const Users = () => {
-  const [users, setUsers] = useState([]);
+const Users = ({searchusers}) => {
+  // const [users, setUsers] = useState([]);
   const [requestSent, setRequestSent] = useState({})
   const userData = useSelector((state)=>state.userDetails.userInfo[0])
   const addFriend = async (userId)=>{
@@ -36,21 +36,22 @@ const Users = () => {
     }
     
   }
-  useEffect(()=>{
-    const fetchUsers = async()=>{
-      try{
-        const users = await usersData();
-        setUsers(users);
+  // useEffect(()=>{
+  //   const fetchUsers = async()=>{
+  //     try{
+  //       const users = await usersData();
+  //       setUsers(users);
         
-      }catch(err){
-        console.log('err fetching users', err);
-      }
-    }
-    fetchUsers();
-  },[])
+  //     }catch(err){
+  //       console.log('err fetching users', err);
+  //     }
+  //   }
+  //   fetchUsers();
+  // },[])
+  console.log('usersss prop',searchusers);
   return (
     <div className="users">
-    {users ? (users.map((user) => (
+    {searchusers ? (searchusers.map((user) => (
       <div key={user._id} className="user">
         <div className="pro-picture">
           <img className="imge" src={user.profilePicture} alt="" />

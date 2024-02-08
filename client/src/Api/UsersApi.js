@@ -27,3 +27,12 @@ export const friedRequest = async (userId,FrireqId)=>{
 //         console.log('err fetching req',err);
 //     }
 // }
+export const SearchApi = async (searchText)=>{
+    try {
+        const search = await publicRequest.get(`users/search/${searchText}`,)
+        console.log('search data in api',search.data);
+        return search.data
+      } catch (err) {
+        console.log("search errorr in jsx");
+      }
+}

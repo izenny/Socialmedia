@@ -143,3 +143,27 @@ exports.deleteUser = async (req, res) => {
         return res.status(500).json({ message: err.message });
     }
 }
+exports.searchUsers = async (req, res)=>{
+  try{
+
+    const searchText = req.params.searchText
+    console.log('search textt' ,searchText);
+    const searchRegex = new RegExp(searchText, 'i');
+    
+    const search = await User.find(
+      {
+        $or : [
+          { firstname : searchRegex},
+          { lastname : searchRegex},
+        ],
+      }
+    );
+    if(!search.length === 0){
+      return res.json({message : "no users found"})
+    }
+    res.json(search)
+  }catch(err){
+    console.error('Error searching users:', err);
+    return res.status(500).json({ message: err.message });
+  }
+}
