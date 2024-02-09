@@ -52,34 +52,34 @@
 // };
 
 // export default Chat;
-import React, { useState, useEffect } from 'react';
-import { IoMdSend } from 'react-icons/io';
-import { io } from 'socket.io-client';
+import React, { useState, useEffect } from "react";
+import { IoMdSend } from "react-icons/io";
+import { io } from "socket.io-client";
 
-const socket = io('http://localhost:5001'); // Replace with your server's origin
+const socket = io("http://localhost:5001"); // Replace with your server's origin
 
 const Chat = ({ roomId }) => {
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   useEffect(() => {
-    socket.emit('join room', roomId);
+    socket.emit("join room", roomId);
 
-    socket.on('chat message', (message) => {
+    socket.on("chat message", (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
   }, [roomId]);
 
   const sendMessage = async () => {
     const { senderId, content } = input;
-    const response = await fetch('http://localhost:5001/chat/message', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("http://localhost:5001/chat/message", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ roomId, senderId, content }),
     });
 
     if (response.ok) {
-      setInput({ senderId: '', content: '' });
+      setInput({ senderId: "", content: "" });
     }
   };
 

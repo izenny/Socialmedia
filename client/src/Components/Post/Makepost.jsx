@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './Makepost.css'
-import { MakeNewPostData } from '../../Api/PostApi';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Makepost.css";
+import { MakeNewPostData } from "../../Api/PostApi";
+import { useSelector } from "react-redux";
 const MyVerticallyCenteredModal = (props) => {
   const { onHide, show } = props; // Destructure onHide and show from props
-  const [postText, setPostText] = useState('');
+  const [postText, setPostText] = useState("");
   const [postImage, setPostImage] = useState(null);
 
   const handleTextChange = (e) => {
@@ -18,10 +18,10 @@ const MyVerticallyCenteredModal = (props) => {
     const file = e.target.files[0];
     setPostImage(file);
   };
-  const userData = useSelector((state)=>state.userDetails.userInfo[0])
-  const handleSubmit = async() => {
+  const userData = useSelector((state) => state.userDetails.userInfo[0]);
+  const handleSubmit = async () => {
     // Handle form submission here
-    if(userData){
+    if (userData) {
       var id = userData._id;
       // console.log(id);
     }
@@ -30,16 +30,15 @@ const MyVerticallyCenteredModal = (props) => {
       const newPostData = {
         author: id,
         content: postText,
-        image: postImage
-        
+        image: postImage,
       };
-      const createdPost = await MakeNewPostData(id,newPostData);
-      console.log('fdgjddjjhmh',newPostData);
-      console.log('Created post:', createdPost);
+      const createdPost = await MakeNewPostData(id, newPostData);
+      console.log("fdgjddjjhmh", newPostData);
+      console.log("Created post:", createdPost);
       onHide(); // Close the modal after successful creation
     } catch (error) {
       // Handle error
-      console.error('Failed to create post:', error);
+      console.error("Failed to create post:", error);
     }
     // Close the modal
     onHide(); // Call onHide directly
@@ -51,7 +50,7 @@ const MyVerticallyCenteredModal = (props) => {
         <Modal.Title>Create a New Post</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form >
+        <Form>
           <Form.Group controlId="postText">
             <Form.Label>Post Text</Form.Label>
             <Form.Control
@@ -83,18 +82,16 @@ const Makepost = () => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
-    
-      <div className="newpost">
-        <Button className='make-post-bn' onClick={() => setModalShow(true)}>
-          Make New Post
-        </Button>
+    <div className="newpost">
+      <Button className="make-post-bn" onClick={() => setModalShow(true)}>
+        Make New Post
+      </Button>
 
-        <MyVerticallyCenteredModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-        />
-      </div>
-    
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+    </div>
   );
 };
 

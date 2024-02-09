@@ -34,12 +34,12 @@ export const notificationData = async (id) => {
   }
 };
 
-// delete notification 
- export const deleteNotificationApi = async (id)=>{
-  try{
-    const deleteNoti = await publicRequest.delete(`notification/${id}`)
-    console.log('notification deleted',deleteNoti);
-  }catch(err){
-    console.log('delete notification err',err);
+// delete notification
+export const deleteNotificationApi = async (id) => {
+  try {
+    const deleteNoti = await publicRequest.delete(`notification/${id}`);
+    console.log("notification deleted", deleteNoti);
+  } catch (err) {
+    console.log("delete notification err", err);
   }
- }
+};

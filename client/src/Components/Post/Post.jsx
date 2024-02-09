@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./Post.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaRegHeart, FaHeart,  FaComment } from "react-icons/fa";
+import { FaRegHeart, FaHeart, FaComment } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { LuSend } from "react-icons/lu";
 import { LikePostApi, PostData } from "../../Api/PostApi";
 import { useSelector } from "react-redux";
-import { commentNotificationApi, likeNotificationApi } from "../../Api/NotificationApi";
+import {
+  commentNotificationApi,
+  likeNotificationApi,
+} from "../../Api/NotificationApi";
 
 const Post = ({ userId }) => {
   const [posts, setPosts] = useState([]);
@@ -29,7 +32,7 @@ const Post = ({ userId }) => {
     fetchPosts();
   }, [userId]);
 
-  const handleLike = async (postId,postUserName) => {
+  const handleLike = async (postId, postUserName) => {
     const NewLikeNotificationdata = {
       user: userId,
       type: "Like",
@@ -38,9 +41,8 @@ const Post = ({ userId }) => {
     };
     try {
       await likeNotificationApi(NewLikeNotificationdata);
-      
-      await LikePostApi(userId,postId)
-      
+
+      await LikePostApi(userId, postId);
     } catch (err) {
       console.log("like functin error");
     }
@@ -48,7 +50,7 @@ const Post = ({ userId }) => {
     // You can implement logic to update the like count and send a request to your API to update the server-side data
   };
 
-  const handleComment =  async (postId,postUserName) => {
+  const handleComment = async (postId, postUserName) => {
     const NewCommentNotificationdata = {
       user: userId,
       type: "Comment",
@@ -92,12 +94,18 @@ const Post = ({ userId }) => {
               </div>
             </div>
             <div className="post-footer">
-              <div className="likes" onClick={() => handleLike(post._id,post.author.firstname)}>
+              <div
+                className="likes"
+                onClick={() => handleLike(post._id, post.author.firstname)}
+              >
                 {/* Conditional rendering of like button based on whether the user has already liked the post */}
                 {post.likes.includes(userId) ? <FcLike /> : <FaRegHeart />}
                 <span className="count">{post.likes.length} Likes</span>
               </div>
-              <div className="comments" onClick={() => handleComment(post._id,post.author.firstname)}>
+              <div
+                className="comments"
+                onClick={() => handleComment(post._id, post.author.firstname)}
+              >
                 <FaComment />
                 <span className="count">{post.comments.length} Comments</span>
               </div>
@@ -109,7 +117,7 @@ const Post = ({ userId }) => {
           </div>
         ))
       ) : (
-        <h2>Loading profile....</h2>
+        <h2>No posts</h2>
       )}
     </div>
   );
