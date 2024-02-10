@@ -165,16 +165,17 @@ exports.searchUsers = async (req, res) => {
   }
 };
 //to get friends
-// exports.getFriends = async(req, res)=>{
-//   try {
-//     const id = req.params.id;
-//     const friends = await User.findById(id);
-
-//   } catch (error) {
-//     console.error('Error searching friends:', error);
-//     return res.status(500).json({ message: err.message });
-//   }
-// }
+exports.getFriends = async(req, res)=>{
+  try {
+    const id = req.params.id;
+    const friends = await User.findById(id)
+      .select( 'friends' );
+    res.json(friends)
+  } catch (error) {
+    console.error('Error searching friends:', error);
+    return res.status(500).json({ message: err.message });
+  }
+}
 //add new friend
 exports.newFriend = async (req, res) => {
   try {
@@ -183,6 +184,7 @@ exports.newFriend = async (req, res) => {
     console.log(userId);
     console.log("frfwefuhgweaghfhgafhjhfA", friendreqId);
     const user = await User.findById(userId);
+    const fuser = await User.findById(friendreqId)
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -190,11 +192,13 @@ exports.newFriend = async (req, res) => {
       return res.status(400).json({ message: "User is already a friend" });
     }
     user.friends.push(friendreqId);
-    user.friendrequest = user.friendrequest.filter(
-      (request) => request.toString() !== friendreqId
-    );
+    fuser.friends.push(userId)
+    // user.friendrequest = user.friendrequest.filter(
+    //   (request) => request.toString() !== friendreqId
+    // );
 
     await user.save();
+    await fuser.save();
     res.json({ message: "Friend added successfully" });
   } catch (err) {
     console.error("Error adding new user:", err);

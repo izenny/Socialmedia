@@ -8,7 +8,7 @@ import Friends from "../Friends/Friends";
 import Friendreq from "../Friendrequests/Friendreq";
 
 const Profile = ({ userId }) => {
-  console.log(userId);
+  
   const [profileInfo, setProfileInfo] = useState(null);
   useEffect(() => {
     const ProfileDataFunction = async () => {
@@ -68,7 +68,8 @@ const Profile = ({ userId }) => {
               </div>
             </div>
             <div className="user-info">
-              {component === "post" && <Post userId={userId} />}
+            {/* passing userid with name friendsids */}
+              {component === "post" && <Post friendsId={[userId]} />}  
               {component === "friends" && (
                 <div>
                   <Friends friends={profileInfo.friends} />

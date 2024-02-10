@@ -11,19 +11,24 @@ import {
   likeNotificationApi,
 } from "../../Api/NotificationApi";
 
-const Post = ({ userId }) => {
+const Post = ({ friendsId }) => {
   const [posts, setPosts] = useState([]);
   const userData = useSelector((state) => state.userDetails.userInfo[0]);
   if (userData) {
-    var userName = userData.firstname;
+    var userId = userData._id;
   }
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const fetchedPosts = await PostData(userId);
+        // const fetchedPosts = await PostData(friendsId);
 
-        setPosts(fetchedPosts);
+        // setPosts(fetchedPosts);
+        const fetchedPosts = await Promise.all(
+          friendsId.map((friendId) => PostData(friendId))
+        );
+        const posts = fetchedPosts.flat();
+        setPosts(posts);
       } catch (err) {
         console.log("err in post", err);
       }

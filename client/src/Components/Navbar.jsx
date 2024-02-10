@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaHome,
   FaUser,
@@ -22,15 +22,38 @@ import Users from "./Users/Users";
 import Friends from "./Friends/Friends";
 import Notifications from "./Notifications/Notifications";
 import Friendreq from "./Friendrequests/Friendreq";
+import { FriendsApi } from "../Api/FriendsApi";
 const Navbar = () => {
-  const Ldispatch = useDispatch();
-  const Logout = () => {
-    Ldispatch(removeData());
-  };
+
   const userData = useSelector((state) => state.userDetails.userInfo[0]);
   if (userData) {
     var id = userData._id;
   }
+  console.log("id****************",id);
+
+  const [hello,setHello] =useState([])
+  useEffect(()=>{
+    
+      const fetchingFriendsFunction = async()=>{
+        try{
+        const fetchedFriends = await FriendsApi(id);
+        const iDs = [id,...fetchedFriends]
+        setHello(iDs)
+        console.log('idsss friends in nav.jsx',iDs);
+        console.log('idsssjsvhadsdhvfjsdhav',hello);
+
+    }catch(err){
+      console.log('err in fetching friends .jsx',err);
+    }
+  }
+  fetchingFriendsFunction()
+  },[])
+
+  const Ldispatch = useDispatch();
+  const Logout = () => {
+    Ldispatch(removeData());
+  };
+  
   // const navigate = useNavigate();
   const userID = () => {
     // navigate(`/profile/${id}`);
@@ -41,7 +64,12 @@ const Navbar = () => {
   const renderPage = () => {
     switch (currentPage) {
       case "home":
-        return <Home />;
+
+        // return <Post friendsId={fri}/>;
+        return <Post friendsId={hello}/>;
+
+        // return <Home />;
+
       case "profile":
         return <Profile userId={id} />;
 
@@ -52,6 +80,7 @@ const Navbar = () => {
         return <Home />;
     }
   };
+
   return (
     <div className="first-p">
       <div className="navbar-p">

@@ -1,11 +1,12 @@
 const Notification = require("../Modals/Notificationschema");
 const { findOne } = require("../Modals/Postschema");
 const User = require("../Modals/Userschema");
+// there is error in deleting existing notification
 exports.createNotification = async (req, res) => {
   try {
     const { user, type, content, read } = req.body;
     console.log("Creating notification:", { user, type, content, read });
-    const existingNotification = await findOne({ user, type, content, read });
+    const existingNotification = await Notification.findOne({ user, type, content, read });
     if (existingNotification) {
       await existingNotification.deleteOne();
     }
