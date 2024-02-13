@@ -126,8 +126,8 @@ exports.getPostsByUserId = async (req, res) => {
   try {
     const userId = req.params.userId;
     const posts = await Post.find({ author: userId })
-      .populate("author", "firstname lastname")
-      .lean();
+      // .populate("author", "firstname lastname")
+      // .lean();
 
     // Extract image data from posts
     const postsWithImageData = await Promise.all(

@@ -65,7 +65,7 @@ const Navbar = () => {
     switch (currentPage) {
       case "home":
 
-        // return <Post friendsId={fri}/>;
+        
         return <Post friendsId={hello}/>;
 
         // return <Home />;
@@ -145,7 +145,8 @@ const Navbar = () => {
           {/* <Users/> */}
           {/* <Friends/> */}
           {/* <Friendreq/> */}
-          <Notifications />
+          {/* <Notifications /> */}
+          <Messages/>
           {/* </div> */}
         </div>
       </div>

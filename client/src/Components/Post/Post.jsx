@@ -16,6 +16,7 @@ const Post = ({ friendsId }) => {
   const userData = useSelector((state) => state.userDetails.userInfo[0]);
   if (userData) {
     var userId = userData._id;
+    var userName = userData.firstname;
   }
 
   useEffect(() => {
@@ -37,11 +38,11 @@ const Post = ({ friendsId }) => {
     fetchPosts();
   }, [userId]);
 
-  const handleLike = async (postId, postUserName) => {
+  const handleLike = async (authorId,postId) => {
     const NewLikeNotificationdata = {
-      user: userId,
-      type: "Like",
-      content: `${postUserName} liked your post`,
+      user: authorId,
+      type: `like ${postId}`,
+      content: `${userName} liked your post`,
       read: false,
     };
     try {
@@ -55,11 +56,11 @@ const Post = ({ friendsId }) => {
     // You can implement logic to update the like count and send a request to your API to update the server-side data
   };
 
-  const handleComment = async (postId, postUserName) => {
+  const handleComment = async (authorId, postId) => {
     const NewCommentNotificationdata = {
-      user: userId,
+      user: authorId,
       type: "Comment",
-      content: `${postUserName} commented your post`,
+      content: `${userName} commented your post`,
       read: false,
     };
     try {
@@ -101,7 +102,7 @@ const Post = ({ friendsId }) => {
             <div className="post-footer">
               <div
                 className="likes"
-                onClick={() => handleLike(post._id, post.author.firstname)}
+                onClick={() => handleLike(post.author, post._id)}
               >
                 {/* Conditional rendering of like button based on whether the user has already liked the post */}
                 {post.likes.includes(userId) ? <FcLike /> : <FaRegHeart />}
@@ -109,7 +110,7 @@ const Post = ({ friendsId }) => {
               </div>
               <div
                 className="comments"
-                onClick={() => handleComment(post._id, post.author.firstname)}
+                onClick={() => handleComment(post.author, post._id)}
               >
                 <FaComment />
                 <span className="count">{post.comments.length} Comments</span>

@@ -10,6 +10,7 @@ export const friendNotification = async (newFriend) => {
 };
 export const likeNotificationApi = async (newLike) => {
   try {
+    console.log('like api ',newLike);
     const LikeNoti = await publicRequest.post("notification", newLike);
     console.log("like noti send", LikeNoti);
   } catch (err) {
