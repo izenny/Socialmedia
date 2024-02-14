@@ -1,27 +1,35 @@
-import React from "react";
-import "../Messages/Messages.css";
-
+import React from 'react'
+import '../Messages/Messages.css'
 const Messages = () => {
   return (
-    <div className="messages-p">
-      <div className="message-m">
-        <div className="prp">
-          <img
-            className="message-user-pic"
-            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-            alt="prp"
-          />
-        </div>
-        <div className="message-user-name">
-          <h5>namegd</h5>
+    <div className='messages-c'>
+      <div className="messages-c-msg">
+      <div className="message-user-pic">
+          <img src='https://images.unsplash.com/photo-1594751543129-6701ad444259?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D' alt='profile-pic' />
 
-          <div className="message-last-m">
-            <p>meskhasgdhsakjjkasjs</p>
-          </div>
+        </div>
+        <div className="message-content-msg">
+          
+          <p className='message-sender-name'>nameee</p>
+          <p className='message-text-msg'>helllooo</p>
+          
+          <p className='message-time-msg'>23:03 </p>
         </div>
       </div>
-    </div>
-  );
-};
+      <div className="messages-c-msg">
+      <div className="message-user-pic">
+          <img src='https://images.unsplash.com/photo-1594751543129-6701ad444259?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZGFyayUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D' alt='profile-pic' />
 
-export default Messages;
+        </div>
+        <div className="message-content-msg">
+          <p className='message-sender-name'>nameee</p>
+          <p className='message-text-msg'>helllooo</p>
+          <p className='message-time-msg'>23:03 </p>
+        </div>
+      </div>
+        
+    </div>
+  )
+}
+
+export default Messages

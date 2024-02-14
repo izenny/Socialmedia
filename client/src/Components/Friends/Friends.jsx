@@ -5,6 +5,7 @@ import { MdMessage } from "react-icons/md";
 import { MdPersonRemove } from "react-icons/md";
 import { FriendsApi } from "../../Api/FriendsApi";
 import Friendreq from "../Friendrequests/Friendreq";
+import { useSelector } from "react-redux";
 const Friends = ({ friends }) => {
   // const [friends, setfriends] = useState()
   // useEffect(()=>{
@@ -19,6 +20,13 @@ const Friends = ({ friends }) => {
   //   }
   //   friendsFunction()
   // },[])
+  // const userData = useSelector((state) => state.userDetails.userInfo[0]);
+  // if (userData) {
+  //   var userId = userData._id;
+  // }
+  const startChat = async(friendId)=>{
+    
+  }
   return (
     <div>
       <div className="friends-div">
@@ -40,7 +48,7 @@ const Friends = ({ friends }) => {
                   </h5>
                 </div>
                 <div className="icons-f-c">
-                  <div className="contact-icons">
+                  <div className="contact-icons" onClick={()=>startChat(friend._id)}>
                     <MdMessage />
                   </div>
                   <div className="contact-icons">

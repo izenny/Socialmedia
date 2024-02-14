@@ -1,7 +1,19 @@
-import React from "react";
+import React from 'react'
 
 const Settings = () => {
-  return <div></div>;
-};
+  return (
+    <div className='serrings-c'>
+      <div className="account-settings">
 
-export default Settings;
+      </div>
+      <div className="update-profile">
+
+      </div>
+      <div className="update-password">
+        
+      </div>
+    </div>
+  )
+}
+
+export default Settings

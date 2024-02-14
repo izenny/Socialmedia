@@ -19,10 +19,12 @@ const Chat = () => {
             <BsThreeDotsVertical />
           </div>
         </div>
-        <div className='messages'>
-          <div className='message received'>Hello there!</div>
-          <div className='message sent'>Hi! How are you?</div>
-          {/* Add more messages here */}
+        <div className='chat-msgs'>
+          
+          <div className="chat-msg-received">hello there!</div>
+
+          <div className="chat-msg-send">hi vcjgcfgcgfcgfcgcfcgc Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat laudantium culpa accusantium velit eos numquam voluptates harum unde doloremque eveniet. Ducimus, quasi? Repellendus vero quaerat, voluptatum doloremque ipsum veritatis odit.im hererererereererer</div>
+          
         </div>
         <div className='footer-chat'>
           <input type='text' placeholder='Type a message...' />

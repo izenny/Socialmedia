@@ -1,5 +1,5 @@
 const Chat = require("../Modals/Chatschema");
-
+const uuid = require("uuid")
 // exports.incomingMessage = async (req, res) => {
 //     try {
 //         const { roomId, senderId, content } = req.body;
@@ -27,6 +27,8 @@ exports.incomingMessage = async (req, res) => {
     const { roomId, senderId, content } = req.body;
     const chat = await Chat.findOne({ room: roomId });
     if (!chat) {
+      const roomId = uuid.v4()
+      console.log('room id',roomId)
       const newChat = new Chat({
         room: roomId,
         message: [{ sender: senderId, content }],
