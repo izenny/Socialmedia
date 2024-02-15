@@ -60,7 +60,9 @@ const Navbar = () => {
     setCurrentPage("profile");
   };
   const [currentPage, setCurrentPage] = useState("home");
-
+const setChat = ()=>{
+setCurrentPage("messages")
+}
   const renderPage = () => {
     switch (currentPage) {
       case "home":
@@ -75,6 +77,9 @@ const Navbar = () => {
 
       case "messages":
         return <Chat />;
+
+      case "friends":
+        return <Friends setChat ={setChat}/>;
 
       default:
         return <Home />;
