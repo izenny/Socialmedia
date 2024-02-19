@@ -72,17 +72,57 @@ exports.NewChat = async (req, res)=>{
     res.status(500).json({ message: "crte chat Error" });
   }
 }
-exports.getChats = async (req, res)=>{
-  try{
+// exports.getChats = async (req, res)=>{
+//   try{
     
+//     const userId = req.params.userId;
+//     console.log('user iiiiidd',userId);
+//     const chats = await Chat.find({
+//       participants:userId
+//     })
+    
+//     .populate("participants", "firstname lastname")
+//     res.status(200).json(chats)
+//   }catch(err){
+//     console.log('got error when fetching chats');
+//     res.status(500).json({ message: "crte chat Error" });
+//   }
+// }
+exports.getChats = async (req, res) => {
+  try {
     const userId = req.params.userId;
-    console.log('user iiiiidd',userId);
+    console.log('user iiiiidd', userId);
     const chats = await Chat.find({
-      participants:userId
+      participants: userId
     })
-    res.status(200).json(chats)
-  }catch(err){
-    console.log('got error when fetching chats');
-    res.status(500).json({ message: "crte chat Error" });
+      .populate("participants", "firstname lastname")
+      .populate({
+        path: 'messages',
+        options: { sort: { timestamp: -1 }, limit: 1 },
+        populate: { path: 'sender', select: 'firstname lastname' }
+      });
+
+    const formattedChats = chats.map(chat => {
+      const lastMessage = chat.messages.length > 0 ? {
+        sender: chat.messages[0].sender.firstname + ' ' + chat.messages[0].sender.lastname,
+        content: chat.messages[0].content,
+        timestamp: chat.messages[0].timestamp,
+        id : chat._id,
+      } : null;
+
+      return {
+        participants: chat.participants,
+        room: chat.room,
+        lastMessage: lastMessage,
+        id : chat._id,
+        
+
+      };
+    });
+    console.log(formattedChats);
+    res.status(200).json(formattedChats);
+  } catch (err) {
+    console.log('got error when fetching chats', err);
+    res.status(500).json({ message: "create chat Error" });
   }
 }
